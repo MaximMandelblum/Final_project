@@ -7,3 +7,8 @@ provider "aws" {
 terraform {
   required_version = "0.14.1"
 }
+
+variable "kubernetes_version" {
+  default = 1.18
+  description = "kubernetes version"
+}

@@ -26,3 +26,13 @@ variable "consul_server" {
   type        = string
   default     = 3
 }
+variable "jenkins_server" {
+  description = " number of needed jenkins servers to build "
+  type        = string
+  default     = 1
+}
+variable "jenkins_agent" {
+  description = " number of needed jenkins agents to build "
+  type        = string
+  default     = 1
+}
