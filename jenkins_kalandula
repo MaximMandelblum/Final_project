@@ -1,0 +1,29 @@
+node("linux1"){
+        stage("Checkout  Kalandula Repo") {
+            git branch: 'main', changelog: false, credentialsId: '94326', poll: false, url: 'https://github.com/MaximMandelblum/kandula_assignment.git'
+    }
+        stage('Building docker image') {
+            customImage = docker.build("my_image_build-${env.BUILD_ID}")
+           
+        }
+        
+        stage('run docker') {
+            sh "docker  run -d --name ${env.BUILD_ID}  -p 5000:5000 ${customImage.imageName()}:latest"
+        }
+        
+        stage('test docker after running') {
+             sh "curl -LI localhost:5000 -o /dev/null -w '%{http_code}\n' -s > result";
+             def output=readFile('result').trim()
+             echo "output=$output";
+        }
+        
+       
+        stage('Deploy Image to docker hub') {
+         if (output == 200) {
+            withDockerRegistry(credentialsId: 'dockerhub.max',url:'') {
+                sh "docker tag ${customImage.imageName()} 6037159/jenkins-test:${customImage.imageName()}"
+                sh "docker push 6037159/jenkins-test:${customImage.imageName()}"
+          }
+         }
+    }
+    }
