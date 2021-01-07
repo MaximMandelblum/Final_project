@@ -15,7 +15,7 @@ spec:
         app: kalandula
     spec:
       containers:
-      - name: kuard
+      - name: kalandula
         image: 6037159/jenkins-test:latest
         ports:
         - containerPort: 5000
