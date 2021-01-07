@@ -45,7 +45,7 @@ spec:
         readinessProbe:
           httpGet:
             path: /_status/healthz
-            port: 80
+            port: 5000
           initialDelaySeconds: 5
           timeoutSeconds: 2
           successThreshold: 1
