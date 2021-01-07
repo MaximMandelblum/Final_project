@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: kalandula
-        image: 6037159/jenkins-test:latest
+        image: 6037159/jenkins-test:my_image_build-96
         ports:
         - containerPort: 5000
           name: http
