@@ -14,12 +14,10 @@ node("linux1"){
         stage('Test Docker Image') {
              
              sh "echo 200"
-             sh "docker ps -aq | xargs docker stop | xargs docker rm"
-            
-             
+             sh "docker ps -aq | xargs docker stop"
+           
         }
         
-       
         stage('Deploy Image to docker hub') {
             
             withDockerRegistry(credentialsId: 'dockerhub.max',url:'') {
