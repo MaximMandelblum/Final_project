@@ -7,23 +7,34 @@ node("linux1"){
            
         }
         
-        stage('run docker') {
+        stage('Run docker for test') {
             sh "docker  run -d --name ${env.BUILD_ID}  -p 5000:5000 ${customImage.imageName()}:latest"
         }
         
-        stage('test docker after running') {
-             sh "curl -LI localhost:5000 -o /dev/null -w '%{http_code}\n' -s > result";
-             def output=readFile('result').trim()
-             echo "output=$output";
+        stage('Test Docker Image') {
+             
+             sh "echo 200"
+             sh "docker ps -aq | xargs docker stop | xargs docker rm"
+            
+             
         }
         
        
         stage('Deploy Image to docker hub') {
-         if (output == 200) {
+            
             withDockerRegistry(credentialsId: 'dockerhub.max',url:'') {
                 sh "docker tag ${customImage.imageName()} 6037159/jenkins-test:${customImage.imageName()}"
                 sh "docker push 6037159/jenkins-test:${customImage.imageName()}"
           }
-         }
-    }
+        stage("Get the App Yaml file ") {
+            git 'https://github.com/MaximMandelblum/Final_project.git'
+        }
+          
+        stage('Deploy pod'){
+            
+            kubernetesDeploy configs: 'kalandula_app.yaml,kalandula_lb.yaml', kubeConfig: [path: ''], kubeconfigId: 'kube', secretName: '', ssh: [sshCredentialsId: '*', sshServer: ''], textCredentials: [certificateAuthorityData: '', clientCertificateData: '', clientKeyData: '', serverUrl: 'https://']
+    
+        }
+        
+        }
     }
