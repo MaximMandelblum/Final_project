@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kalandula
+  annotations:
+    kubernetes.io/change-cause: "First release kalandula"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kalandula
+  template:
+    metadata:
+      labels:
+        app: kalandula
+    spec:
+      containers:
+      - name: kalandula
+        image: 6037159/jenkins-test:my_image_build-96
+        ports:
+        - containerPort: 5000
+          name: http
+          protocol: TCP
