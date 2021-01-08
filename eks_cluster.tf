@@ -3,12 +3,15 @@ module "eks" {
   cluster_name    = local.cluster_name
   cluster_version = "1.17"
   subnets         = module.vpc.private_subnet_ids
+  
+  enable_irsa = true
 
   tags = {
     Environment = "training"
     GithubRepo  = "terraform-aws-eks"
     GithubOrg   = "terraform-aws-modules"
   }
+
 
   vpc_id = module.vpc.vpc_id
 

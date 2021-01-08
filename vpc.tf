@@ -1,4 +1,5 @@
 
+
 locals {
   cluster_name = "opsschool-eks-${random_string.suffix.result}"
 }
@@ -17,5 +18,19 @@ module "vpc" {
   vpc_name = "kalandula-vpc"
   cidr_network = "10.0.0.0/16"
 
+  tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+  }
 
+  public_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/elb"                      = "1"
+  }
+
+  private_subnet_tags = {
+    "kubernetes.io/cluster/${local.cluster_name}" = "shared"
+    "kubernetes.io/role/internal-elb"             = "1"
+  }
+  
+ 
 }
