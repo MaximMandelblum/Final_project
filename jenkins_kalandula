@@ -3,27 +3,33 @@ node("linux1"){
             git branch: 'main', changelog: false, credentialsId: '94326', poll: false, url: 'https://github.com/MaximMandelblum/kandula_assignment.git'
     }
         stage('Building docker image') {
-            customImage = docker.build("my_image_build-${env.BUILD_ID}")
+            customImage = docker.build("6037159/jenkins-test:latest")
            
         }
         
         stage('Run docker for test') {
-            sh "docker  run -d --name ${env.BUILD_ID}  -p 5000:5000 ${customImage.imageName()}:latest"
+            container = customImage.run('-p 5000:5000')
         }
         
-        stage('Test Docker Image') {
+        stage('Test Docker Image ') {
              
-             sh "echo 200"
-             sh "docker ps -aq | xargs docker stop"
-           
+             sh 'sleep 10'
+             response = sh (script: 'curl -Is localhost:5000 | head -1 | awk \'{print $2}\'', returnStdout: true).trim()
+             if ("$response" == "200"){
+                 echo "the resonse is ${response}"
+                 withDockerRegistry(credentialsId: 'dockerhub.max') {
+                      customImage.push()
+            }
         }
-        
-        stage('Deploy Image to docker hub') {
-            
-            withDockerRegistry(credentialsId: 'dockerhub.max',url:'') {
-                sh "docker tag ${customImage.imageName()} 6037159/jenkins-test:${customImage.imageName()}"
-                sh "docker push 6037159/jenkins-test:${customImage.imageName()}"
-          }
+        else{
+                 container.stop()
+                 error("application didnt reutrn 200,  $response")
+        }
+    }
+        stage('Clean Local Docker'){
+            container.stop()
+         }
+    
         stage("Get the App Yaml file ") {
             git 'https://github.com/MaximMandelblum/Final_project.git'
         }
@@ -34,5 +40,4 @@ node("linux1"){
     
         }
         
-        }
     }
