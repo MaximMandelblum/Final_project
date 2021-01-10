@@ -50,6 +50,6 @@ Important: Make sure you get the nodes role arn from the currently configured co
 * connect Jenkins Seever Public ip on port 8080 
 * Run the job : deploy kalandula app 
 
-9. # check form kubectl get pods and kubectl get svc , to see if the app and LB service deployed .
+9. check form kubectl get pods and kubectl get svc , to see if the app and LB service deployed .
 
-10. # connect EKS public cluster ip to check the Application is up and Running .
+10. connect EKS public cluster ip to check the Application is up and Running .
