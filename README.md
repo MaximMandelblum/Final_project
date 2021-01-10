@@ -33,13 +33,21 @@ If you'd like to add more authrized users or roles to your eks cluster follow th
 * Create an IAM role or user that is authorized to user EKS
 
 * From an authorized user edit aws-auth-cm.yaml update aws-auth configmap and add the relevant users/roles and execute with kubectl
+<<<<<<< HEAD
+=======
+
+>>>>>>> ac1bc4d8c0d419adcf6c9cb7ee8b2c76c98347d7
 data:
   mapRoles: |
     - rolearn: <Replace with ARN of your EKS nodes role>
       
 Important: Make sure you get the nodes role arn from the currently configured configmap using kubectl get configmap aws-auth -n kube-system -o yaml and replace with the above <Replace with ARN of your EKS nodes role>
 
+<<<<<<< HEAD
 6.  Add Jenkins Agent to IAM role that have the correct rights to perform all the actions needed.
+=======
+6. # Add Jenkins Agent to IAM role that have the correct rights to perform all the actions needed.
+>>>>>>> ac1bc4d8c0d419adcf6c9cb7ee8b2c76c98347d7
 
 7. # Testing Consul Server :
 * connect Consul server Public ip on port 8500 .
@@ -49,6 +57,12 @@ Important: Make sure you get the nodes role arn from the currently configured co
 * connect Jenkins Seever Public ip on port 8080 
 * Run the job : deploy kalandula app 
 
+<<<<<<< HEAD
 9.  check form kubectl get pods and kubectl get svc , to see if the app and LB service deployed .
 
 10.  connect EKS public cluster ip to check the Application is up and Running .
+=======
+9. check form kubectl get pods and kubectl get svc , to see if the app and LB service deployed .
+
+10. connect EKS public cluster ip to check the Application is up and Running .
+>>>>>>> ac1bc4d8c0d419adcf6c9cb7ee8b2c76c98347d7
