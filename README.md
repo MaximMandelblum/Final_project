@@ -44,10 +44,14 @@ data:
 Important: Make sure you get the nodes role arn from the currently configured configmap using kubectl get configmap aws-auth -n kube-system -o yaml and replace with the above <Replace with ARN of your EKS nodes role>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 6.  Add Jenkins Agent to IAM role that have the correct rights to perform all the actions needed.
 =======
 6. # Add Jenkins Agent to IAM role that have the correct rights to perform all the actions needed.
 >>>>>>> ac1bc4d8c0d419adcf6c9cb7ee8b2c76c98347d7
+=======
+6.  Add Jenkins Agent to IAM role that have the correct rights to perform all the actions needed.
+>>>>>>> 80f0a7e9130852a75181a6995e84802771528861
 
 7. # Testing Consul Server :
 * connect Consul server Public ip on port 8500 .
