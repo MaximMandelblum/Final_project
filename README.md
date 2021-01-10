@@ -10,8 +10,11 @@ Install kubectl on your workstation/server
 
 Variables:
 Change the aws_region to your requested region (default: us-east-1)
+
 Change kubernetes_version to the desired version (default: 1.18)
+
 Change k8s_service_account_namespace to the namespace for your application (default: default)
+
 Change k8s_service_account_name to the service account name for your application (default: k8s_service_account_name)
 
 Run:
